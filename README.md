@@ -1,10 +1,12 @@
 # 🚀 Bitget API V2 Python Client
 
-A powerful and intuitive Python client for the Bitget API V2, focusing on position management and trading operations. More API endpoints will be added based on user demand.
+A comprehensive Python client for the Bitget API V2, providing extensive functionality for futures trading, account management, and market data access.
 
 ## ✨ Features
 
-- 📊 Position management for all futures markets
+- 📊 Complete futures market trading capabilities
+- 💼 Account management and settings
+- 📈 Real-time and historical market data
 - 🔄 Automatic rate limiting and request handling
 - 🛡️ Comprehensive error handling and validation
 - 📝 Detailed debug logging capabilities
@@ -23,19 +25,40 @@ client = BitgetAPI(
     debug=True
 )
 
-# Get all positions
-positions = client.position.get_all_positions(
-    product_type="USDT-FUTURES",
-    margin_coin="USDT"
+# Get market data
+ticker = client.market.get_ticker(
+    symbol="BTCUSDT",
+    product_type="USDT-FUTURES"
 )
 
-# Get single position
-position = client.position.get_single_position(
+# Get account information
+account = client.account.get_account(
     symbol="BTCUSDT",
     product_type="USDT-FUTURES",
     margin_coin="USDT"
 )
 ```
+
+## 🔑 Core Components
+
+**Account Management**
+- Account information and settings
+- Leverage and margin configuration
+- Position mode management
+- Asset mode settings
+- Interest and bill history
+
+**Position Management**
+- Position tracking and history
+- Position tier information
+- Multiple position modes support
+
+**Market Data**
+- Real-time tickers and depth
+- Candlestick data with multiple timeframes
+- Funding rates and open interest
+- Historical transaction data
+- Contract specifications
 
 ## 💹 Supported Markets
 
@@ -48,24 +71,10 @@ position = client.position.get_single_position(
 | SCOIN-FUTURES| Simulated coin futures |
 | SUSDC-FUTURES| Simulated USDC futures |
 
-## 🛠️ Core Features
-
-**Position Management**
-- 📈 Get all positions
-- 🎯 Get single position details
-- 📜 Query historical positions
-- 🔝 Get position tier information
-
-**Advanced Capabilities**
-- ⚡ Smart rate limiting
-- 🔐 Secure request signing
-- ⚠️ Comprehensive error handling
-- 🔍 Debug logging support
-
 ## ⚠️ Error Handling
 
 ```python
-from bitget_api.exceptions import RequestError, InvalidProductTypeError, BitgetAPIError
+from bitget_api.exceptions import InvalidProductTypeError, BitgetAPIError
 
 try:
     positions = client.position.get_all_positions("INVALID-TYPE")
@@ -79,10 +88,34 @@ except BitgetAPIError as e:
 
 The client implements a smart token bucket algorithm for rate limiting, automatically tracking and managing request limits per endpoint to ensure optimal API usage.
 
+## 📊 Advanced Market Data
+
+```python
+# Get candlestick data
+candles = client.market.get_candlestick(
+    symbol="BTCUSDT",
+    product_type="USDT-FUTURES",
+    granularity="1m",
+    limit=100
+)
+
+# Get market depth
+depth = client.market.get_merge_depth(
+    symbol="BTCUSDT",
+    product_type="USDT-FUTURES",
+    precision="0.1"
+)
+```
+
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to submit a Pull Request. If you need additional API endpoints implemented, please open an issue and I will prioritize adding them.
+Contributions are welcome! Feel free to submit a Pull Request. For feature requests or bug reports, please open an issue.
 
 ## 📄 License
 
 This project is licensed under the MIT License.
+
+Citations:
+[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/45765156/c6616fd7-7ff6-4ed8-adec-990982d907e4/account.py
+[2] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/45765156/a397637a-9470-4e70-88f9-620274df873a/position.py
+[3] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/45765156/1fba71bc-7a09-4b25-82be-021a9273ec80/market.py

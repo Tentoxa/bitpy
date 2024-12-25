@@ -9,13 +9,16 @@ from bitget_api.api import BitgetAPI
 from bitget_api.exceptions import (
     BitgetAPIError,
     InvalidProductTypeError,
+    InvalidGranularityError,
+    InvalidBusinessTypeError,
     RequestError
 )
 
-# Optional: Export key classes/functions for easier imports
 __all__ = [
     'BitgetAPI',
     'BitgetAPIError',
     'InvalidProductTypeError',
+    'InvalidGranularityError',
+    'InvalidBusinessTypeError',
     'RequestError'
 ]

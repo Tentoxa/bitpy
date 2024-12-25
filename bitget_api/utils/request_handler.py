@@ -1,3 +1,5 @@
+from venv import logger
+
 import requests
 import base64
 import hmac
@@ -51,7 +53,9 @@ class RateLimiter:
 
 
 class RequestHandler:
-    def __init__(self, api_key: str, secret_key: str, api_passphrase: str, base_url: str, debug: bool = False):
+    def __init__(self, base_url: str, api_key: Optional[str] = None,
+                 secret_key: Optional[str] = None, api_passphrase: Optional[str] = None,
+                 debug: bool = False):
         self.api_key = api_key
         self.secret_key = secret_key
         self.api_passphrase = api_passphrase
@@ -60,19 +64,32 @@ class RequestHandler:
         self.session = requests.Session()
         self.logger = LogManager(self, debug)
         self.rate_limiter = RateLimiter(self.logger)
-
-    def _get_headers(self, method: str, request_path: str, query_string: str = "", body: str = "") -> dict:
-        timestamp = str(int(datetime.now().timestamp() * 1000))
-        signature = self._generate_signature(timestamp, method, request_path, query_string, body)
-
-        headers = {
-            "ACCESS-KEY": self.api_key,
-            "ACCESS-SIGN": signature,
-            "ACCESS-TIMESTAMP": timestamp,
-            "ACCESS-PASSPHRASE": self.api_passphrase,
+        self.static_headers = {
             "Content-Type": "application/json",
             "locale": "en-US"
         }
+        self.has_auth = all([api_key, secret_key, api_passphrase])
+
+        # Only add authentication headers if credentials are provided
+        if self.has_auth:
+            self.static_headers.update({
+                "ACCESS-KEY": self.api_key,
+                "ACCESS-PASSPHRASE": self.api_passphrase,
+            })
+
+    def _get_headers(self, method: str, request_path: str, query_string: str = "", body: str = "") -> dict:
+        if not self.has_auth:
+            logger.debug(f"Authentication credentials required for this endpoint: {request_path}")
+            raise RequestError("Authentication credentials required for this endpoint")
+
+        timestamp = str(int(datetime.now().timestamp() * 1000))
+        signature = self._generate_signature(timestamp, method, request_path, query_string, body)
+
+        headers = self.static_headers.copy()
+        headers.update({
+            "ACCESS-SIGN": signature,
+            "ACCESS-TIMESTAMP": timestamp
+        })
         return headers
 
     def _generate_signature(self, timestamp: str, method: str, request_path: str, query_string: str = "",
@@ -92,9 +109,12 @@ class RequestHandler:
         ).decode('utf-8')
         return signature
 
-    def request(self, method: str, endpoint: str, params: Optional[Dict[str, Any]] = None) -> Dict:
+    def request(self, method: str, endpoint: str, params: Optional[Dict[str, Any]] = None, authenticate: bool = True) -> Dict:
         query_string = "&".join(f"{k}={v}" for k, v in sorted(params.items())) if params else ""
-        headers = self._get_headers(method, endpoint, query_string)
+        if authenticate:
+            headers = self._get_headers(method, endpoint, query_string)
+        else:
+            headers = self.static_headers
 
         url = f"{self.base_url}{endpoint}"
         if query_string:

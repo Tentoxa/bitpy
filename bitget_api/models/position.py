@@ -1,19 +1,9 @@
 from dataclasses import dataclass, fields
 from typing import List
-from enum import Enum
-
-
-class ProductType(Enum):
-    USDT_FUTURES = 'USDT-FUTURES'
-    COIN_FUTURES = 'COIN-FUTURES'
-    USDC_FUTURES = 'USDC-FUTURES'
-    SUSDT_FUTURES = 'SUSDT-FUTURES'
-    SCOIN_FUTURES = 'SCOIN-FUTURES'
-    SUSDC_FUTURES = 'SUSDC-FUTURES'
-
+from .base import BaseResponse, BaseData
 
 @dataclass
-class PositionData:
+class PositionData(BaseData):
     marginCoin: str
     symbol: str
     holdSide: str
@@ -45,16 +35,8 @@ class PositionData:
     cTime: str
     uTime: str
 
-    def __init__(self, **kwargs):
-        names = set([f.name for f in fields(self)])
-        for k, v in kwargs.items():
-            if k in names:
-                # Convert None to empty string to match API behavior
-                setattr(self, k, v if v is not None else '')
-
-
 @dataclass
-class HistoricalPositionData:
+class HistoricalPositionData(BaseData):
     positionId: str
     marginCoin: str
     symbol: str
@@ -72,13 +54,8 @@ class HistoricalPositionData:
     cTime: str
     uTime: str
 
-    def __init__(self, **kwargs):
-        for k, v in kwargs.items():
-            setattr(self, k, v if v is not None else '')
-
-
 @dataclass
-class PositionTierData:
+class PositionTierData(BaseData):
     symbol: str
     level: str
     startUnit: str
@@ -86,38 +63,18 @@ class PositionTierData:
     leverage: str
     keepMarginRate: str
 
-    def __init__(self, **kwargs):
-        for k, v in kwargs.items():
-            setattr(self, k, v if v is not None else '')
-
-
 @dataclass
-class PositionTierResponse:
-    code: str
-    msg: str
-    requestTime: int
+class PositionTierResponse(BaseResponse):
     data: List[PositionTierData]
 
-
 @dataclass
-class HistoricalPositionsResponse:
-    code: str
-    msg: str
-    requestTime: int
+class HistoricalPositionsResponse(BaseResponse):
     data: List[HistoricalPositionData]
 
-
 @dataclass
-class AllPositionsResponse:
-    code: str
-    msg: str
-    requestTime: int
+class AllPositionsResponse(BaseResponse):
     data: List[PositionData]
 
-
 @dataclass
-class SinglePositionResponse:
-    code: str
-    msg: str
-    requestTime: int
+class SinglePositionResponse(BaseResponse):
     data: List[PositionData]
