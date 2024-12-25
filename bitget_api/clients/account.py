@@ -155,7 +155,6 @@ class BitgetAccountClient(BitgetBaseClient):
 
 
     def set_margin(self, symbol: str, product_type: str, margin_coin: str, amount: str, hold_side: str) -> BaseResponse:
-        """Adjust position margin (isolated margin mode only)"""
         self._validate_product_type(product_type)
 
         params = self._build_params(
@@ -177,7 +176,6 @@ class BitgetAccountClient(BitgetBaseClient):
 
 
     def set_asset_mode(self, product_type: str, asset_mode: str) -> BaseResponse:
-        """Set USDT-M Futures Asset Mode"""
         self._validate_product_type(product_type)
 
         params = self._build_params(
@@ -196,7 +194,6 @@ class BitgetAccountClient(BitgetBaseClient):
 
 
     def set_position_mode(self, product_type: str, pos_mode: str) -> PositionModeResponse:
-        """Change position mode between one-way and hedge mode"""
         self._validate_product_type(product_type)
 
         params = self._build_params(
@@ -223,7 +220,6 @@ class BitgetAccountClient(BitgetBaseClient):
             end_time: Optional[Union[datetime, int]] = None,
             limit: Optional[int] = None
     ) -> BillsResponse:
-        """Get account bills"""
         self._validate_product_type(product_type)
         if business_type:
             self._validate_businesstype(business_type)
@@ -256,7 +252,6 @@ class BitgetAccountClient(BitgetBaseClient):
         return BillsResponse(**response)
 
     def set_margin_mode(self, symbol: str, product_type: str, margin_coin: str, margin_mode: str) -> MarginModeResponse:
-        """Change margin mode between isolated and crossed"""
         self._validate_product_type(product_type)
 
         params = self._build_params(

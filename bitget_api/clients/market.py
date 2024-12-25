@@ -90,7 +90,6 @@ class BitgetMarketClient(BitgetBaseClient):
 
     def get_all_tickers(self, product_type: str) -> TickerResponse:
         self._validate_product_type(product_type)
-        """Get all tickers for a product type"""
         params = self._build_params(productType=product_type)
         response = self.request_handler.request(
             method="GET",
