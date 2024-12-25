@@ -17,7 +17,32 @@ A comprehensive Python client for the Bitget API V2, providing extensive functio
 ```python
 from bitget_api import BitgetAPI
 
-# Initialize the client
+# For market data only - no API keys needed
+client = BitgetAPI(
+    api_key=None,
+    secret_key=None,
+    api_passphrase=None
+)
+
+# Get market data without authentication
+ticker = client.market.get_ticker(
+    symbol="BTCUSDT",
+    product_type="USDT-FUTURES"
+)
+
+# Get candlestick data
+candles = client.market.get_candlestick(
+    symbol="BTCUSDT",
+    product_type="USDT-FUTURES",
+    granularity="1m",
+    limit=100
+)
+```
+
+For account and position operations, API keys are required:
+
+```python
+# For trading operations - API keys required
 client = BitgetAPI(
     api_key="your_api_key",
     secret_key="your_secret_key",
@@ -25,19 +50,19 @@ client = BitgetAPI(
     debug=True
 )
 
-# Get market data
-ticker = client.market.get_ticker(
-    symbol="BTCUSDT",
-    product_type="USDT-FUTURES"
-)
-
-# Get account information
+# Get account information (requires authentication)
 account = client.account.get_account(
     symbol="BTCUSDT",
     product_type="USDT-FUTURES",
     margin_coin="USDT"
 )
 ```
+
+Citations:
+[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/45765156/4372aaf6-79ee-4739-9f6b-1ceda93893b9/paste.txt
+[2] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/45765156/c6616fd7-7ff6-4ed8-adec-990982d907e4/account.py
+[3] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/45765156/a397637a-9470-4e70-88f9-620274df873a/position.py
+[4] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/45765156/1fba71bc-7a09-4b25-82be-021a9273ec80/market.py
 
 ## 🔑 Core Components
 
