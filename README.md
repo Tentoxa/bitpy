@@ -81,7 +81,7 @@ The client implements a smart token bucket algorithm for rate limiting, automati
 
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to submit a Pull Request. If you need additional API endpoints implemented, please open an issue and we'll prioritize adding them.
+Contributions are welcome! Feel free to submit a Pull Request. If you need additional API endpoints implemented, please open an issue and I will prioritize adding them.
 
 ## 📄 License
 
