@@ -1,6 +1,6 @@
-# 🚀 Bitget API Python Client
+# 🚀 Bitget API V2 Python Client
 
-A powerful and intuitive Python client for the Bitget API, focusing on position management and trading operations.
+A powerful and intuitive Python client for the Bitget API V2, focusing on position management and trading operations. More API endpoints will be added based on user demand.
 
 ## ✨ Features
 
@@ -81,7 +81,7 @@ The client implements a smart token bucket algorithm for rate limiting, automati
 
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to submit a Pull Request.
+Contributions are welcome! Feel free to submit a Pull Request. If you need additional API endpoints implemented, please open an issue and we'll prioritize adding them.
 
 ## 📄 License
 
