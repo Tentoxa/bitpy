@@ -139,8 +139,3 @@ Contributions are welcome! Feel free to submit a Pull Request. For feature reque
 ## 📄 License
 
 This project is licensed under the MIT License.
-
-Citations:
-[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/45765156/c6616fd7-7ff6-4ed8-adec-990982d907e4/account.py
-[2] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/45765156/a397637a-9470-4e70-88f9-620274df873a/position.py
-[3] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/45765156/1fba71bc-7a09-4b25-82be-021a9273ec80/market.py
