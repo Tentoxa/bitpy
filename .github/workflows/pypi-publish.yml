@@ -11,6 +11,7 @@ on:
 env:
   PYPI_PACKAGE_NAME: "bitget-python"  # Set your PyPI package name here
 
+
 jobs:
   version-check:
     runs-on: ubuntu-latest
