@@ -52,6 +52,9 @@ jobs:
           pip install build wheel twine
       - name: Build package
         run: python -m build
+      - name: Check distributions
+        run: |
+          python -m twine check dist/*
       - name: Upload distributions
         uses: actions/upload-artifact@v4
         with:
@@ -75,13 +78,22 @@ jobs:
           name: release-dists
           path: dist/
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install twine
+        run: |
+          python -m pip install --upgrade pip
+          pip install twine
+
       - name: Publish to PyPI
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
         run: |
-          twine check dist/*
-          twine upload dist/*
+          python -m twine upload dist/*
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
