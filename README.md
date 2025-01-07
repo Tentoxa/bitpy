@@ -15,8 +15,8 @@ A comprehensive Python client for the Bitget API V2, providing extensive functio
 ## 🛠️ Installation
 
 ```bash
-# Install using PIP
-pip install git+https://github.com/Tentoxa/bitpy
+# Install using PYPI
+pip install bitget-python
 ```
 
 ## 🔧 Quick Start
