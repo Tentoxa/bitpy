@@ -13,3 +13,22 @@ requires-python = ">=3.9"
 dependencies = [
     "requests>=2.32.2",
 ]
+
+readme = "README.md"
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords = ["bitget", "api", "trading", "cryptocurrency"]
+
+[project.urls]
+Homepage = "https://github.com/Tentoxa/bitpy"
+Repository = "https://github.com/Tentoxa/bitpy"
+Documentation = "https://github.com/Tentoxa/bitpy#readme"
