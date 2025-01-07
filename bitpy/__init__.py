@@ -5,7 +5,8 @@
 
 __version__ = '1.0.0'
 
-from bitpy.api import BitgetAPI
+from bitpy.rest_api import BitgetAPI
+from bitpy.ws_api import BitgetWebsocketAPI
 from bitpy.exceptions import (
     BitgetAPIError,
     InvalidProductTypeError,
@@ -15,6 +16,7 @@ from bitpy.exceptions import (
 )
 
 __all__ = [
+    'BitgetWebsocketAPI',
     'BitgetAPI',
     'BitgetAPIError',
     'InvalidProductTypeError',

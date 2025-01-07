@@ -5,11 +5,14 @@ class BitgetAPIError(Exception):
         super().__init__(f"BitgetAPI Error {code}: {message}"
                          f"")
 
+
 class InvalidProductTypeError(Exception):
     pass
 
+
 class InvalidGranularityError(Exception):
     pass
+
 
 class InvalidBusinessTypeError(Exception):
     pass

@@ -1,5 +1,5 @@
 from .base_client import BitgetBaseClient
-from ..exceptions import InvalidBusinessTypeError
+from bitpy.exceptions import InvalidBusinessTypeError
 from ..models.account import *
 from datetime import datetime
 from typing import Optional, Union

@@ -1,9 +1,11 @@
 from .clients.position import BitgetPositionClient
 from .clients.market import BitgetMarketClient
 from .clients.account import BitgetAccountClient
-from .utils.log_manager import LogManager
 
+from .utils.log_manager import LogManager
 from .utils.request_handler import RequestHandler
+
+from .models.login import BitgetCredentials
 from typing import Optional
 
 
@@ -11,7 +13,10 @@ class BitgetAPI:
     def __init__(self, api_key: Optional[str] = None, secret_key: Optional[str] = None,
                  api_passphrase: Optional[str] = None, base_url: str = "https://api.bitget.com",
                  debug: bool = False):
-        request_handler = RequestHandler(base_url, api_key, secret_key, api_passphrase, debug)
+
+        credentials = BitgetCredentials(api_key, secret_key, api_passphrase)
+
+        request_handler = RequestHandler(base_url, credentials, debug)
         logger = LogManager(self, debug)
 
         self.position = BitgetPositionClient(request_handler, debug)

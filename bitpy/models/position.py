@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import List
 from .base import BaseResponse, BaseData
 
+
 @dataclass
 class PositionData(BaseData):
     marginCoin: str
@@ -32,8 +33,9 @@ class PositionData(BaseData):
     stopLoss: str
     takeProfitId: str
     stopLossId: str
-    cTime: str
-    uTime: str
+    ctime: str
+    utime: str
+
 
 @dataclass
 class HistoricalPositionData(BaseData):
@@ -51,8 +53,9 @@ class HistoricalPositionData(BaseData):
     totalFunding: str
     openFee: str
     closeFee: str
-    cTime: str
-    uTime: str
+    ctime: str
+    utime: str
+
 
 @dataclass
 class PositionTierData(BaseData):
@@ -63,17 +66,21 @@ class PositionTierData(BaseData):
     leverage: str
     keepMarginRate: str
 
+
 @dataclass
 class PositionTierResponse(BaseResponse):
     data: List[PositionTierData]
+
 
 @dataclass
 class HistoricalPositionsResponse(BaseResponse):
     data: List[HistoricalPositionData]
 
+
 @dataclass
 class AllPositionsResponse(BaseResponse):
     data: List[PositionData]
+
 
 @dataclass
 class SinglePositionResponse(BaseResponse):

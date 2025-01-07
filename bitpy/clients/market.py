@@ -1,5 +1,5 @@
 from ..models.market import *
-from ..exceptions import InvalidGranularityError
+from bitpy.exceptions import InvalidGranularityError
 from typing import Optional, Union
 from datetime import datetime
 from .base_client import BitgetBaseClient

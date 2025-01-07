@@ -8,7 +8,9 @@ from typing import Optional, Dict, Any
 from .log_manager import LogManager
 from time import time
 from collections import defaultdict
-from ..exceptions import RequestError
+from bitpy.exceptions import RequestError
+
+from ..models.login import BitgetCredentials
 
 
 class RateLimiter:
@@ -53,12 +55,12 @@ class RateLimiter:
 
 
 class RequestHandler:
-    def __init__(self, base_url: str, api_key: Optional[str] = None,
-                 secret_key: Optional[str] = None, api_passphrase: Optional[str] = None,
+    def __init__(self, base_url: str, credentials: BitgetCredentials,
                  debug: bool = False):
-        self.api_key = api_key
-        self.secret_key = secret_key
-        self.api_passphrase = api_passphrase
+
+        self.api_key = credentials.api_key if credentials else None
+        self.secret_key = credentials.secret_key if credentials else None
+        self.api_passphrase = credentials.api_passphrase if credentials else None
         self.base_url = base_url.rstrip('/')
         self.debug = debug
         self.session = requests.Session()
@@ -68,7 +70,7 @@ class RequestHandler:
             "Content-Type": "application/json",
             "locale": "en-US"
         }
-        self.has_auth = all([api_key, secret_key, api_passphrase])
+        self.has_auth = all([self.api_key, self.secret_key, self.api_passphrase])
 
         # Only add authentication headers if credentials are provided
         if self.has_auth:
@@ -109,7 +111,8 @@ class RequestHandler:
         ).decode('utf-8')
         return signature
 
-    def request(self, method: str, endpoint: str, params: Optional[Dict[str, Any]] = None, authenticate: bool = True) -> Dict:
+    def request(self, method: str, endpoint: str, params: Optional[Dict[str, Any]] = None,
+                authenticate: bool = True) -> Dict:
         query_string = "&".join(f"{k}={v}" for k, v in sorted(params.items())) if params else ""
         if authenticate:
             headers = self._get_headers(method, endpoint, query_string)

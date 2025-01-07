@@ -1,6 +1,6 @@
 from ..utils.request_handler import RequestHandler
 from ..models.base import ProductType
-from ..exceptions import InvalidProductTypeError
+from bitpy.exceptions import InvalidProductTypeError
 from datetime import datetime, timedelta
 from typing import Optional, Union
 

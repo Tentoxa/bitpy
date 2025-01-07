@@ -65,6 +65,49 @@ account = client.account.get_account(
 )
 ```
 
+## 🌐 WebSocket Support (Only Public)
+
+```python
+from bitpy import BitgetWebsocketAPI
+import asyncio
+
+async def handle_ticker(data: dict):
+    if "data" in data and len(data["data"]) > 0:
+        ticker = data["data"][0]
+        print(f"Symbol: {ticker['instId']}")
+        print(f"Last Price: {ticker['lastPr']}")
+        print(f"24h High: {ticker['high24h']}")
+        print(f"24h Low: {ticker['low24h']}")
+        print(f"24h Change %: {ticker['change24h']}")
+        print("-" * 50)
+        
+async def main():
+    # Initialize WebSocket client
+    api = BitgetWebsocketAPI(is_private=False, debug=False)
+    ws_client = api.websocket
+    # Subscribe to channels
+    subscriptions = [
+        {
+            "instType": "SPOT",
+            "channel": "ticker",
+            "instId": "BTCUSDT"
+        }
+    ]
+    try:
+        await ws_client.connect()
+        print("Connected to WebSocket")
+        await ws_client.subscribe(subscriptions, handle_ticker)
+        # Keep connection alive
+        while ws_client.connected:
+            await asyncio.sleep(1)
+            
+    except KeyboardInterrupt:
+        await ws_client.close()
+        
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
 ## 🔑 Core Components
 
 **Account Management**
