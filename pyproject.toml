@@ -3,7 +3,7 @@ requires = ["setuptools>=42"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "bitget-api"
+name = "bitget-python"
 version = "1.0.0"
 description = "A Python client for the Bitget API with comprehensive position management"
 authors = [
