@@ -15,6 +15,7 @@ dependencies = [
     "websockets>=14.1",
 ]
 
+
 readme = "README.md"
 license = {text = "MIT"}
 classifiers = [
