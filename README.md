@@ -12,10 +12,17 @@ A comprehensive Python client for the Bitget API V2, providing extensive functio
 - 📝 Detailed debug logging capabilities
 - 🎯 Type hints and dataclass models for better code completion
 
+## 🛠️ Installation
+
+```bash
+# Install using PIP
+pip install git+https://github.com/Tentoxa/bitpy
+```
+
 ## 🔧 Quick Start
 
 ```python
-from bitget_api import BitgetAPI
+from bitpy import BitgetAPI
 
 # For market data only - no API keys needed
 client = BitgetAPI(
@@ -93,7 +100,7 @@ account = client.account.get_account(
 ## ⚠️ Error Handling
 
 ```python
-from bitget_api.exceptions import InvalidProductTypeError, BitgetAPIError
+from bitpy.exceptions import InvalidProductTypeError, BitgetAPIError
 
 try:
     positions = client.position.get_all_positions("INVALID-TYPE")

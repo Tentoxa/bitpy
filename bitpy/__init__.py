@@ -5,8 +5,8 @@
 
 __version__ = '1.0.0'
 
-from bitget_api.api import BitgetAPI
-from bitget_api.exceptions import (
+from bitpy.api import BitgetAPI
+from bitpy.exceptions import (
     BitgetAPIError,
     InvalidProductTypeError,
     InvalidGranularityError,
