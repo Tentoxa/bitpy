@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 
+
 class ProductType(Enum):
     USDT_FUTURES = 'USDT-FUTURES'
     COIN_FUTURES = 'COIN-FUTURES'
@@ -15,6 +16,7 @@ class BaseResponse:
     code: str
     msg: str
     requestTime: int
+
 
 @dataclass
 class BaseData:
